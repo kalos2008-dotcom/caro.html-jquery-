@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>4.2.1 - Bàn cờ caro jQuery</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .controls {
+      margin-bottom: 10px;
+    }
+
+    .controls button {
+      padding: 4px 12px;
+      margin-right: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    #caro-board {
+      display: inline-block;
+      border: 1px solid #666;
+      padding: 4px;
+      background-color: #fff;
+    }
+
+    .caro-row {
+      display: flex;
+    }
+    .caro-row:nth-child(odd) .caro-cell {
+      background-color: #f4f6f8;
+    }
+
+    .caro-row:nth-child(even) .caro-cell {
+      background-color: #e3eaf2;
+    }
+    .caro-cell {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #888;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      user-select: none;
+      box-sizing: border-box;
+    }
+
+    .caro-cell:hover {
+      background-color: #fff3cd !important;
+    }
+
+    .caro-title {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 8px;
+      font-size: 15px;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="controls">
+    <button id="btn-hide">Hide</button>
+    <button id="btn-show">Show</button>
+    <button id="btn-toggle">Toggle</button>
+  </div>
+>
+  <div id="caro-board">
+    <div id="grid"></div>
+    <div class="caro-title">CARO GAME</div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      const rows = 10;
+      const cols = 10;
+      let turnX = true;
+      for (let r = 0; r < rows; r++) {
+        const $row = $('<div class="caro-row"></div>');
+        for (let c = 0; c < cols; c++) {
+          const $cell = $('<div class="caro-cell"></div>');
+          $row.append($cell);
+        }
+        $("#grid").append($row);
+      }
+      $("#btn-hide").click(function () {
+        $("#caro-board").hide(300);
+      });
+      $("#btn-show").click(function () {
+        $("#caro-board").show(300);
+      });
+      $("#btn-toggle").click(function () {
+        $("#caro-board").toggle(300);
+      });
+      $("#grid").on("click", ".caro-cell", function () {
+        if ($(this).text() === "") {
+          if (turnX) {
+            $(this).text("X").css("color", "#1a237e");
+          } else {
+            $(this).text("O").css("color", "#b71c1c");
+          }
+          turnX = !turnX; 
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
